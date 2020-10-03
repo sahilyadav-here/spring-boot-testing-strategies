@@ -4,13 +4,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Clean Build'
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing'
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
         stage('JaCoCo') {
@@ -21,19 +21,19 @@ pipeline {
         }
         stage('build') { 
             steps { 
-               bat 'mvn install'
+               sh 'mvn install'
             }
         }
         stage('Package') {
             steps {
                 echo 'Packaging'
-                bat 'mvn package -DskipTests'
+                sh 'mvn package -DskipTests'
             }
         }
         stage("SonarQube analysis") {
             steps {
               withSonarQubeEnv('project-1') {
-                  bat 'mvn sonar:sonar'
+                  sh 'mvn sonar:sonar'
               }
             }
           }
